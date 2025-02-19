@@ -4,9 +4,18 @@ import { getTrips, parseQuery } from "../lib";
 
 const router = Router();
 
-type Station = {EVACode: string, UICCode: string, land: string, namen: {lang: string, middle: string, kort: string}}
+type Station = {
+    EVACode: string,
+    UICCode: string,
+    land: string,
+    namen: {
+        lang: string,
+        middle: string,
+        kort: string
+    }
+}
 
-export type StationFetchResult = {payload: Station[]}
+export type StationFetchResult = { payload: Station[] }
 
 const crowdRanking = {
     "LOW": 0,
@@ -15,9 +24,9 @@ const crowdRanking = {
 }
 
 //crowdForecast type is a guess
-type Trip = {optimal: boolean, transfers: number, crowdForecast: "LOW" | "MEDIUM" | "HIGH"}
+type Trip = { optimal: boolean, transfers: number, crowdForecast: "LOW" | "MEDIUM" | "HIGH" }
 
-export type TripsFetchResult = {trips: Trip[]}
+export type TripsFetchResult = { trips: Trip[] }
 
 router.get("/optimalTrainPath", async (req, res) => {
     try{

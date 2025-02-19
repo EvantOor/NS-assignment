@@ -24,20 +24,20 @@ function fetchExternal<X extends object>(route: string, key: string) {
 
 export async function getTrips(from: string, to: string, date: string, key: string) {
     const stations: StationFetchResult = await fetchExternal<StationFetchResult>(
-                `https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/stations?limit=10`, key);
+        `https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/stations?limit=10`, key);
     
-            const fromUICCode = stations.payload.find((station) => Object.values(station.namen).includes(from))?.UICCode;
-            const toUICCode = stations.payload.find((station) => Object.values(station.namen).includes(to))?.UICCode;
+    const fromUICCode = stations.payload.find((station) => Object.values(station.namen).includes(from))?.UICCode;
+    const toUICCode = stations.payload.find((station) => Object.values(station.namen).includes(to))?.UICCode;
     
-            if(!fromUICCode || !toUICCode) {
-                throw new Error(`One of the two stations (${from} or ${to}) could not be found`)
-            }
+    if(!fromUICCode || !toUICCode) {
+        throw new Error(`One of the two stations (${from} or ${to}) could not be found`)
+    }
     
-            const trips: TripsFetchResult = await fetchExternal<TripsFetchResult>(
-            `https://gateway.apiportal.ns.nl/reisinformatie-api/api/v3/trips?originUicCode=${fromUICCode}&destinationUicCode=${toUICCode}&originWalk=false&originBike=false&originCar=false&destinationWalk=false&destinationBike=false&destinationCar=false&dateTime=${date}&shorterChange=false&travelAssistance=false&searchForAccessibleTrip=false&localTrainsOnly=false&excludeHighSpeedTrains=false&excludeTrainsWithReservationRequired=false&discount=NO_DISCOUNT&travelClass=2&passing=false&travelRequestType=DEFAULT`, 
-            key
-            );
-            return trips;
+    const trips: TripsFetchResult = await fetchExternal<TripsFetchResult>(
+        `https://gateway.apiportal.ns.nl/reisinformatie-api/api/v3/trips?originUicCode=${fromUICCode}&destinationUicCode=${toUICCode}&originWalk=false&originBike=false&originCar=false&destinationWalk=false&destinationBike=false&destinationCar=false&dateTime=${date}&shorterChange=false&travelAssistance=false&searchForAccessibleTrip=false&localTrainsOnly=false&excludeHighSpeedTrains=false&excludeTrainsWithReservationRequired=false&discount=NO_DISCOUNT&travelClass=2&passing=false&travelRequestType=DEFAULT`, 
+        key
+        );
+    return trips;
 }
 
 export function parseQuery(req: Request) {
@@ -50,5 +50,5 @@ export function parseQuery(req: Request) {
         throw new Error("Missing required value")
     }
 
-    return {from, to, date, key}
+    return { from, to, date, key }
 }
