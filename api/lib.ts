@@ -52,6 +52,3 @@ export function parseQuery(req: Request) {
 
     return {from, to, date, key}
 }
-
-'002b78ffc61f44e2be6f6bda126920ae'
-'2025-02-18'
