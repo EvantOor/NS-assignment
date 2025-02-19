@@ -1,17 +1,12 @@
 import express from "express";
-import cors from "cors";
 import swaggerAutogen from "swagger-autogen";
 import swaggerUI from "swagger-ui-express"
 import nsRoute from "./routes/nsRoute"
 
 const app = express();
 
-app.use(`/api`, cors() as express.Handler);
-
-
 app.use("/health", (_, res) => {res.send("Healthy")})
 app.use("/api", nsRoute)
-
 
 try {
     swaggerAutogen({
